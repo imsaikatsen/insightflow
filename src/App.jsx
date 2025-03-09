@@ -13,12 +13,10 @@ import Register from './pages/Register';
 
 import { Provider } from 'react-redux';
 import store from './store';
+import Analytics from './pages/Analytics';
+import Settings from './pages/Settings';
 
-// Protected Route Component
-const ProtectedRoute = ({ children }) => {
-  const { user } = useSelector((state) => state.auth); // Check if user is logged in
-  return user ? children : <Navigate to="/login" />;
-};
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -39,6 +37,36 @@ function App() {
                   <div className="w-full">
                     <Navbar />
                     <Dashboard />
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/analytics"
+            element={
+              <ProtectedRoute>
+                <div className="min-h-screen flex">
+                  <Sidebar />
+                  <div className="w-full">
+                    <Navbar />
+                    <Analytics /> {/* Add the Analytics Component */}
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/settings"
+            element={
+              <ProtectedRoute>
+                <div className="min-h-screen flex">
+                  <Sidebar />
+                  <div className="w-full">
+                    <Navbar />
+                    <Settings /> {/* Add the Analytics Component */}
                   </div>
                 </div>
               </ProtectedRoute>
